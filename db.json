@@ -7,14 +7,6 @@
       "password": "123456",
       "profileImage": "assets/image.png",
       "token": "v404rfrsyfr"
-    },
-    {
-      "username": "eman elsayed",
-      "email": "emanelsayedd2024@gmail.com",
-      "password": "123456",
-      "profileImage": "assets/image.png",
-      "token": "gw931frlkxs",
-      "id": "EpclJlf"
     }
   ],
   "posts": [
@@ -32,9 +24,7 @@
           "content": "soo cute!!"
         }
       ],
-      "likedBy": [
-        "d7de"
-      ],
+      "likedBy": ["d7de"],
       "action": "like"
     }
   ]

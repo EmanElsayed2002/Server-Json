@@ -1,8 +1,0 @@
-[build]
-  command = "npm install && npm run start"
-  publish = "."
-
-[[redirects]]
-  from = "/api/*"
-  to = "/.netlify/server"
-  status = 200
