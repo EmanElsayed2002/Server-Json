@@ -1,31 +1,40 @@
-// See https://github.com/typicode/json-server#module
-const jsonServer = require('json-server')
+const jsonServer = require('json-server');
+const fs = require('fs');
+const path = require('path');
 
-const server = jsonServer.create()
+const server = jsonServer.create();
+const filePath = path.join('db.json');
+const data = fs.readFileSync(filePath, 'utf-8');
+const db = JSON.parse(data);
+const router = jsonServer.router(filePath);
+const middlewares = jsonServer.defaults();
 
-// Uncomment to allow write operations
-// const fs = require('fs')
-// const path = require('path')
-// const filePath = path.join('db.json')
-// const data = fs.readFileSync(filePath, "utf-8");
-// const db = JSON.parse(data);
-// const router = jsonServer.router(db)
+server.use(middlewares);
 
-// Comment out to allow write operations
-const router = jsonServer.router('db.json')
+// دعم الكتابة في db.json
+server.use(jsonServer.bodyParser);
 
-const middlewares = jsonServer.defaults()
-
-server.use(middlewares)
-// Add this before server.use(router)
+// إضافة إعادة توجيه للـ API
 server.use(jsonServer.rewriter({
     '/api/*': '/$1',
     '/blog/:resource/:id/show': '/:resource/:id'
-}))
-server.use(router)
-server.listen(3000, () => {
-    console.log('JSON Server is running')
-})
+}));
 
-// Export the Server API
-module.exports = server
+// تأكيد عمل CRUD
+server.post('/posts', (req, res) => {
+    const newPost = {
+        id: Date.now(),
+        ...req.body
+    };
+    db.posts.push(newPost); // إضافة للـ db.json
+    fs.writeFileSync(filePath, JSON.stringify(db, null, 2));
+    res.status(201).json(newPost);
+});
+
+server.use(router);
+
+server.listen(3000, () => {
+    console.log('JSON Server is running on port 3000');
+});
+
+module.exports = server;
