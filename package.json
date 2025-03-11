@@ -1,19 +1,10 @@
 {
   "name": "server-json",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
   "scripts": {
     "start": "node server.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/EmanElsayed2002/Server-Json.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/EmanElsayed2002/Server-Json/issues"
-  },
-  "homepage": "https://github.com/EmanElsayed2002/Server-Json#readme"
+  "dependencies": {
+    "json-server": "^0.17.0"
+  }
 }
